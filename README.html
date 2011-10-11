@@ -1,0 +1,360 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>README</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+/* 
+   This document has been created with Marked.app <http://markedapp.com>, Copyright 2011 Brett Terpstra
+   Please leave this notice in place, along with any additional credits below.
+   ---------------------------------------------------------------
+   Some simple Github-like styles, with syntax highlighting CSS via Pygments (requires custom processor).
+   via https://github.com/alampros/Docter
+*/
+html {
+	margin:0;
+	padding:1em;
+}
+body{
+    -webkit-font-smoothing: antialiased;
+	font: 13.34px helvetica,arial,freesans,clean,sans-serif;
+	line-height: 1.4em;
+	color: #333;
+	border: none;
+	line-height: 1.5;
+	margin: 0 auto;
+    max-width: 900px; 
+	text-align:left;
+	color:black;
+    background:#fff;
+}
+
+@media screen {
+    #wrapper { padding:9px; background:#F8F8F8;	border:1px solid #E9E9E9;}    
+    body.inverted, .inverted #wrapper {
+        color: #eee;
+        background:#333;
+        border-color:#555
+    }
+    .inverted h2 {
+        border-color:#555
+    }
+}
+h1 {
+	font-size: 170%;
+	border-top: 4px solid #aaa;
+	padding-top: .5em;
+	margin-top: 1.5em;
+}
+
+h1:first-child {
+	margin-top: 0 !important;
+	padding-top: .25em !important;
+	border-top: none !important;
+}
+
+h2 {
+	font-size: 150%;
+	margin-top: 1.5em;
+	border-top: 4px solid #e0e0e0;
+	padding-top: .5em;
+}
+
+h3 {
+	margin-top: 1em;
+}
+
+br+br {
+	line-height:0;
+	height:0;
+	display:none;
+}
+
+p {
+	margin: 1em 0!important;
+	line-height: 1.5em!important;
+}
+
+pre, code {
+    font: 12px 'Bitstream Vera Sans Mono','Courier',monospace;
+}
+pre {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0664062) 0px 1px 2px 0px inset;
+    background-color: #EEE;
+    border: #ddd 1px solid;
+    color: #444;
+    display: block;
+    margin: 12px 0;
+    overflow: auto;
+    padding: 5px;
+    white-space: pre;
+    max-width:100%;
+    overflow:auto;
+}
+code {
+    background-color: ghostWhite;
+    color: #444!important;
+    padding: 0 .2em;
+    border: 1px solid #DEDEDE;
+}
+pre code {
+    padding: 0!important;
+    font-size: 12px!important;
+    background-color: #EEE!important;
+    border: none!important;
+    overflow:visible;
+}
+a, a code {
+	color: #4183C4;
+	text-decoration:none;
+}
+
+table td {
+	border-bottom: 1px solid #DDD!important;
+	padding: .2em 1em!important;
+}
+
+.shadow{
+	-webkit-box-shadow:0 5px 15px #000;
+	-moz-box-shadow:0 5px 15px #000;
+	box-shadow:0 5px 15px #000;		
+}
+
+
+.c{color:#998;font-style:italic;}
+.err{color:#a61717;background-color:#e3d2d2;}
+.k{font-weight:bold;}
+.o{font-weight:bold;}
+.cm{color:#998;font-style:italic;}
+.cp{color:#999;font-weight:bold;}
+.c1{color:#998;font-style:italic;}
+.cs{color:#999;font-weight:bold;font-style:italic;}
+.gd{color:#000;background-color:#fdd;}
+.gd .x{color:#000;background-color:#faa;}
+.ge{font-style:italic;}
+.gr{color:#a00;}
+.gh{color:#999;}
+.gi{color:#000;background-color:#dfd;}
+.gi .x{color:#000;background-color:#afa;}
+.go{color:#888;}
+.gp{color:#555;}
+.gs{font-weight:bold;}
+.gu{color:#800080;font-weight:bold;}
+.gt{color:#a00;}
+.kc{font-weight:bold;}
+.kd{font-weight:bold;}
+.kn{font-weight:bold;}
+.kp{font-weight:bold;}
+.kr{font-weight:bold;}
+.kt{color:#458;font-weight:bold;}
+.m{color:#099;}
+.s{color:#d14;}
+.na{color:#008080;}
+.nb{color:#0086B3;}
+.nc{color:#458;font-weight:bold;}
+.no{color:#008080;}
+.ni{color:#800080;}
+.ne{color:#900;font-weight:bold;}
+.nf{color:#900;font-weight:bold;}
+.nn{color:#555;}
+.nt{color:#000080;}
+.nv{color:#008080;}
+.ow{font-weight:bold;}
+.w{color:#bbb;}
+.mf{color:#099;}
+.mh{color:#099;}
+.mi{color:#099;}
+.mo{color:#099;}
+.sb{color:#d14;}
+.sc{color:#d14;}
+.sd{color:#d14;}
+.s2{color:#d14;}
+.se{color:#d14;}
+.sh{color:#d14;}
+.si{color:#d14;}
+.sx{color:#d14;}
+.sr{color:#009926;}
+.s1{color:#d14;}
+.ss{color:#990073;}
+.bp{color:#999;}
+.vc{color:#008080;}
+.vg{color:#008080;}
+.vi{color:#008080;}
+.il{color:#099;}
+
+.poetry pre {
+    font-family:Georgia, Garamond, serif !important;
+    font-style:italic;
+    font-size:110% !important;
+    line-height:1.6em;
+    display:block;
+    margin-left:1em;
+}
+
+.poetry pre code {
+    font-family:Georgia, Garamond, serif !important;
+}
+
+sup,sub,a.footnote {
+	font-size: 1.4ex;
+	height: 0;
+	line-height: 1;
+	vertical-align: super;
+	position: relative;
+}
+
+@media print {
+    body {
+        background:#fff;
+    }
+    #wrapper {
+        background: #fff;
+        border:none;
+    }
+    code {
+        background-color: #fff;
+        color: #444!important;
+        padding: 0 .2em;
+        border: 1px solid #DEDEDE;
+    }
+    pre code {
+        padding: 0!important;
+        font-size: 12px!important;
+        background-color: #fff!important;
+        border: none!important;
+        overflow:visible;
+    }
+    pre {
+        background: #fff;
+        white-space: pre-wrap;
+        white-space: pre-line;
+    }
+}
+</style>
+
+</head>
+<body class="normal">
+  <div id="wrapper">
+      <h1 id="readme">README</h1>
+
+<p>Since you&#8217;re reading this, you have successfully cloned the webdriver-testsuite
+repository.</p>
+
+<h2 id="nextstepstogetstarted">Next steps to get started</h2>
+
+<ol>
+<li><p>Install <a href="http://maven.apache.org/">Apache Maven</a></p>
+
+<ul>
+<li><p>Debian Linux:</p>
+
+<p>$ sudo apt-get install maven2</p></li>
+<li><p>Windows: [TBD]</p></li>
+<li><p>Mac OS X: Maven is already installed.</p></li>
+</ul></li>
+<li><p>Install <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Sun Java JRE and JDK</a></p>
+
+<ul>
+<li><p>Debian Linux:</p>
+
+<p>$ sudo apt-get install sun-java6-jre sun-java6-jdk</p></li>
+<li><p>Windows: [TBD]</p></li>
+<li><p>Mac OS X: Maven is already installed.</p></li>
+</ul></li>
+<li><p>Build the project (Make sure, you&#8217;re in the project root directory,
+ where the <kbd>pom.xml</kbd> file is located)</p>
+
+<pre><code>$ mvn test
+</code></pre></li>
+</ol>
+
+<p>Maven will download all needed dependencies declared in the <kbd>pom.xml</kbd> file,
+build the project and execute all present unittests. If all went okay
+maven will terminate with the message</p>
+
+<pre><code>[INFO] BUILD SUCCESSFUL
+</code></pre>
+
+<p>and some runtime statistics.</p>
+
+<h3 id="projectsetupinyouride">Project Setup in your IDE</h3>
+
+<h4 id="netbeans">Netbeans</h4>
+
+<p>Recommended IDE for developing frontend tests is <a href="http://www.netbeans.org">NetBeans</a> because
+you just need to open the <kbd>pom.xml</kbd> and nothing else. With Eclipse
+the use of Maven is a bit more hassle. For getting the JavaDoc and
+sources of the dependeny open the project explorer in Netbeans and right
+click on the folder <em>Dependencies</em> and just clock the apropriate menue
+items.</p>
+
+<h4 id="eclispe">Eclispe</h4>
+
+<p>[TBD]</p>
+
+<h2 id="howtowriteatest">How to write a test</h2>
+
+<p>In the project view (in Netbeans) you will see the directoy &#8216;Source Packages&#8217;
+and &#8216;Test Packages&#8217;. In the first one you will only find helper classes
+(e.g. for loading personas, create fixtures etc.). In the latter one you will
+find the the unit test classes (either for the helper classes or the frontent
+tests). As unit test framework <a href="http://www.junit.org/">JUnit</a> is used. The frontent tests
+itself are contained in the package <kbd>org.cacert.frontendtests</kbd>.
+In this package you will add your tests. If you&#8217;re not familiar with packages in
+Java read <a href="http://en.wikipedia.org/wiki/Java_package">this</a>.</p>
+
+<p>Writing a test with JUnit follows nearly the same rules as in <a href="https://github.com/sebastianbergmann/phpunit/">PHPUnit</a>
+(because PHPUnit is a JUnit clone). You also need to extend a base class. But you
+will not extend the JUnits default <kbd>TestCase</kbd> but <kbd>AbstractTestCase</kbd>
+from the package <kbd>org.cacert.frontendtests</kbd>. This class provides helper
+methods for creating <a href="http://seleniumhq.org/docs/03_webdriver.html">Webdriver</a> instances, personas, fixtures or logged
+in sessions.</p>
+
+<h3 id="somejavahints:">Some Java hints:</h3>
+
+<ul>
+<li>Attend the <kbd>@Override</kbd> annotation, if you overwrite a method.
+ If you ommit this a compiler warning will be thrown.</li>
+<li>No <kbd>function</kbd> keyword is needed for a method declaration, but
+ a return type is required.</li>
+<li>You can ommit <kbd>this</kbd> inside your scope, but keep in mind that
+ local variables will shadow class fields.</li>
+<li>Strings are double quoted <kbd>&#8220;string&#8221;</kbd>, single quotes are characters <kbd>&#8216;c&#8217;</kbd>!</li>
+<li>Annotations are something similar to interfaces and so need to be imported.</li>
+</ul>
+
+<p>An example for a test:</p>
+
+<pre><code>package org.cacert.frontendtests;
+
+import org.junit.Ignore;
+
+// You do not need to import AbstractTestCase because
+// you are in the same package!
+
+public class MyFirstTest extends AbstractTestCase {
+
+    @Override
+    protected void setUp() {
+        // setup stuff
+    }
+
+    @Override
+    protected void tearDown() {
+        // teardown stuff   
+    }
+
+    @Ignore(&quot;Not ready yet&quot;)
+    public void testSomething() {
+        // your test code goes here 
+    }
+}
+</code></pre>
+
+<p>Some nice examples about annotations just found <a href="http://www.frankwestphal.de/JUnit4.0.html">here</a>.</p>
+
+    </div>
+</body>
+</html>
