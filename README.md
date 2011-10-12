@@ -1,8 +1,9 @@
 README
 ======
 
-Since you're reading this, you have successfully cloned the webdriver-testsuite
-repository.
+Clone this repo:
+
+	git clone git://github.com/Weltraumschaf/cacert-frontendtests.git
 
 Next steps to get started
 -------------------------
