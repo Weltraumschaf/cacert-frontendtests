@@ -9,30 +9,41 @@
 package org.cacert.frontendtests;
 
 import org.junit.Ignore;
+import org.junit.Test;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.After;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
  *
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
-public class LoginTest extends AbstractTestCase {
-    
+public class LoginTest {
+
     private WebDriver driver;
-    
-    @Override
-    protected void setUp() {
-        
+
+    @Before
+    public void setUp() {
+        try {
+            driver = TestHelper.createDriverByType(TestHelper.DriverType.HTMLUNIT);
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
     }
-    
-    @Ignore("Not ready yet")
-    public void testLogin() {
-        
-    }
-    
-    @Override
-    protected void tearDown() {
+
+    @After
+    public void tearDown() {
         driver.close();
         driver = null;
-//        person = null;
     }
+
+//    @Ignore("Not ready yet")
+    @Test
+    public void checkForLoginFormPresence() {
+        assertTrue(true);
+    }
+
 }

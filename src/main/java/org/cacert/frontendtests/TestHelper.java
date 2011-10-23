@@ -8,7 +8,7 @@
  */
 package org.cacert.frontendtests;
 
-import junit.framework.TestCase;
+//import junit.framework.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -19,23 +19,26 @@ import org.openqa.selenium.chrome.ChromeDriver;
  *
  * @author Sven Strittmatter <ich@weltraumschaf.de>
  */
-public class AbstractTestCase extends TestCase {
+public class TestHelper {
 
+    /**
+     * Supported driver types.
+     */
     public enum DriverType {
         FIREFOX,
         CHROME,
         INTERNET_EXPLORER,
         HTMLUNIT
     }
-    
+
     /**
      * Determines desired WebDriver type and returns accordingly.
-     * 
+     *
      * @param type
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
-    private WebDriver getDriverByType(DriverType type) throws Exception {
+    public static WebDriver createDriverByType(DriverType type) throws Exception {
         WebDriver driver;
         switch (type) {
             case FIREFOX:
