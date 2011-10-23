@@ -23,7 +23,14 @@ import org.openqa.selenium.WebElement;
  */
 public class LoginTest {
 
+    private static final String TEST_SYSTEM = "https://cacert1.it-sls.de/";
+    private static final String MANAGEMENT_SYSTEM = "https://ca-mgr1.it-sls.de/";
     private WebDriver driver;
+    private RandomString stringGenerator;
+
+    public LoginTest() {
+        stringGenerator = new RandomString(10);
+    }
 
     @Before
     public void setUp() {
@@ -40,10 +47,52 @@ public class LoginTest {
         driver = null;
     }
 
-//    @Ignore("Not ready yet")
-    @Test
-    public void checkForLoginFormPresence() {
-        assertTrue(true);
+    private String generateFirstName() {
+        return "First" + stringGenerator.next();
     }
 
+    @Test public void checkFirstNamePrefix() {
+        assertEquals("First", generateFirstName().substring(0, 5));
+        assertEquals("First", generateFirstName().substring(0, 5));
+        assertEquals("First", generateFirstName().substring(0, 5));
+    }
+
+    private String generateLastName() {
+        return "Last" + stringGenerator.next();
+    }
+
+    @Test public void checkLastNamePrefix() {
+        assertEquals("Last", generateLastName().substring(0, 4));
+        assertEquals("Last", generateLastName().substring(0, 4));
+        assertEquals("Last", generateLastName().substring(0, 4));
+    }
+
+    private String generatePassword() {
+        return "PW-" + stringGenerator.next();
+    }
+
+    @Test public void checkPasswordPrefix() {
+        assertEquals("PW-", generatePassword().substring(0, 3));
+        assertEquals("PW-", generatePassword().substring(0, 3));
+        assertEquals("PW-", generatePassword().substring(0, 3));
+    }
+
+    private String generateEmailAddres(String firstName, String lastName) {
+        StringBuilder sb = new StringBuilder(firstName.toLowerCase());
+        sb.append("@").append(lastName.toLowerCase()).append(".de");
+        return sb.toString();
+    }
+
+    @Test
+    public void checkGeneratedEmailAddreses() {
+        assertEquals("hans@dampf.de", generateEmailAddres("hans", "dampf"));
+        assertEquals("hans@dampf.de", generateEmailAddres("Hans", "dampf"));
+        assertEquals("hans@dampf.de", generateEmailAddres("Hans", "Dampf"));
+    }
+
+    @Ignore("Not ready yet")
+    @Test
+    public void registerActivateAndLoginNewUser() {
+
+    }
 }
