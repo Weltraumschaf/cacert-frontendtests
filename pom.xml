@@ -9,13 +9,13 @@
     <packaging>jar</packaging>
     <name>CAcert Frontent Testsuite</name>
     <description>...</description>
-    
+
 
     <organization>
         <name>CAcert</name>
         <url>http://www.cacert.org</url>
     </organization>
-    
+
     <developers>
         <developer>
             <id>Weltraumschaf</id>
@@ -29,27 +29,22 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <compileTarget>1.6</compileTarget>
     </properties>
-	
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.1</version>
+            <version>4.10</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>2.6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-            <version>2.5.1</version>
+            <version>2.9.0</version>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
-            <version>2.6.0</version>
+            <version>2.9.0</version>
             <type>jar</type>
         </dependency>
     </dependencies>
@@ -77,18 +72,6 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.sensphere.webdriver.Main</mainClass>
-                        </manifest>
-                    </archive>
                 </configuration>
             </plugin>
         </plugins>
