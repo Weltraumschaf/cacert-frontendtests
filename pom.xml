@@ -24,6 +24,32 @@
         </developer>
     </developers>
 
+    <licenses>
+        <license>
+            <name>The Beer Ware License (Revision 42)</name>
+            <url>http://www.weltraumschaf.de/the-beer-ware-license.txt</url>
+            <distribution>repo</distribution>
+            <comments>
+                "THE BEER-WARE LICENSE" (Revision 42):
+                "Sven Strittmatter" &lt;ich(at)weltraumschaf(dot)de&gt; wrote this file.
+                As long as you retain this notice you can do whatever you want with
+                this stuff. If we meet some day, and you think this stuff is worth it,
+                you can buy me a beer in return.
+            </comments>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>Mantis</system>
+        <url>https://bugs.cacert.org/</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com/Weltraumschaf/cacert-frontendtests.git</connection>
+        <developerConnection>scm:git:git@github.com:Weltraumschaf/cacert-frontendtests.git</developerConnection>
+        <url>https://github.com/Weltraumschaf/cacert-frontendtests/</url>
+    </scm>
+
     <properties>
         <!-- http://docs.codehaus.org/display/MAVENUSER/POM+Element+for+Source+File+Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
