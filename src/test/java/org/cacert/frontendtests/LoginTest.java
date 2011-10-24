@@ -96,7 +96,7 @@ public class LoginTest {
         assertEquals("hans.dampf@cacert1.it-sls.de", generateEmailAddres("Hans", "Dampf"));
     }
 
-    @Test
+    @Test @Ignore("Not ready yet!")
     public void registerActivateAndLoginNewUser() {
         /*
          * 1. register at TEST_SYSTEM_URI
