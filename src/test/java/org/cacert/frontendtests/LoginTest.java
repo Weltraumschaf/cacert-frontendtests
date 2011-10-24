@@ -91,7 +91,6 @@ public class LoginTest {
         assertEquals("hans@dampf.de", generateEmailAddres("Hans", "Dampf"));
     }
 
-//    @Ignore("Not ready yet")
     @Test
     public void registerActivateAndLoginNewUser() {
         /*
@@ -128,20 +127,32 @@ public class LoginTest {
         driver.findElement(By.name("pword2"))
               .sendKeys(password);
 
-        for (int i = 1; i <= 5 ; i++) {
-            driver.findElement(By.name("Q" + i))
-                  .sendKeys("qestion_" + i);
-            driver.findElement(By.name("A" + 1))
-                  .sendKeys("answer_" + i);
-        }
+        driver.findElement(By.name("Q1"))
+              .sendKeys("qestion_1");
+        driver.findElement(By.name("A1"))
+              .sendKeys("answer_1");
+        driver.findElement(By.name("Q2"))
+              .sendKeys("qestion_2");
+        driver.findElement(By.name("A2"))
+              .sendKeys("answer_2");
+        driver.findElement(By.name("Q3"))
+              .sendKeys("qestion_3");
+        driver.findElement(By.name("A3"))
+              .sendKeys("answer_3");
+        driver.findElement(By.name("Q4"))
+              .sendKeys("qestion_4");
+        driver.findElement(By.name("A4"))
+              .sendKeys("answer_4");
+        driver.findElement(By.name("Q5"))
+              .sendKeys("qestion_5");
+        driver.findElement(By.name("A5"))
+              .sendKeys("answer_5");
 
         driver.findElement(By.name("cca_agree"))
               .click();
         driver.findElement(By.name("process"))
               .click();
         System.out.println(driver.getPageSource());
-//        driver.findElement(By.cssSelector(".storry"))
-//              .findElement(By.tagName("p"));
 //        System.out.println(emailAddress + " - " + password);
     }
 }
