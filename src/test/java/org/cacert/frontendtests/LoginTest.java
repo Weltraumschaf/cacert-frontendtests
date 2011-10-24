@@ -24,8 +24,10 @@ import org.openqa.selenium.WebElement;
  */
 public class LoginTest {
 
-    private static final String TEST_SYSTEM = "https://cacert1.it-sls.de/";
-    private static final String MANAGEMENT_SYSTEM = "https://ca-mgr1.it-sls.de/";
+    private static final String TEST_SYSTEM_URI = "https://cacert1.it-sls.de/";
+    private static final String MANAGEMENT_SYSTEM_URI = "https://ca-mgr1.it-sls.de/";
+    private static final String MAIL_DOMAIN = "cacert1.it-sls.de";
+
     private WebDriver driver;
     private RandomString stringGenerator;
 
@@ -80,24 +82,24 @@ public class LoginTest {
 
     private String generateEmailAddres(String firstName, String lastName) {
         StringBuilder sb = new StringBuilder(firstName.toLowerCase());
-        sb.append("@").append(lastName.toLowerCase()).append(".de");
+        sb.append(".")
+          .append(lastName.toLowerCase())
+          .append("@")
+          .append(MAIL_DOMAIN);
         return sb.toString();
     }
 
     @Test
     public void checkGeneratedEmailAddreses() {
-        assertEquals("hans@dampf.de", generateEmailAddres("hans", "dampf"));
-        assertEquals("hans@dampf.de", generateEmailAddres("Hans", "dampf"));
-        assertEquals("hans@dampf.de", generateEmailAddres("Hans", "Dampf"));
+        assertEquals("hans.dampf@cacert1.it-sls.de", generateEmailAddres("hans", "dampf"));
+        assertEquals("hans.dampf@cacert1.it-sls.de", generateEmailAddres("Hans", "dampf"));
+        assertEquals("hans.dampf@cacert1.it-sls.de", generateEmailAddres("Hans", "Dampf"));
     }
 
     @Test
     public void registerActivateAndLoginNewUser() {
         /*
-         * 1. register at TEST_SYSTEM
-         * 2. activate at MANAGEMENT_SYSTEM
-         * 3. login at TEST_SYSTEM
-         * 4. logout at TEST_SYSTEM
+         * 1. register at TEST_SYSTEM_URI
          */
         String firstName    = generateFirstName();
         String lastName     = generateLastName();
@@ -107,25 +109,30 @@ public class LoginTest {
         int month           = 5;
         String year         = "1979";
 
-        driver.get(TEST_SYSTEM + "index.php?id=1");
+        driver.get(TEST_SYSTEM_URI + "index.php?id=1");
         driver.findElement(By.name("fname"))
               .sendKeys(firstName);
         driver.findElement(By.name("lname"))
               .sendKeys(lastName);
+
         List<WebElement> days = driver.findElement(By.name("day"))
                                       .findElements(By.tagName("option"));
         days.get(day - 1).click();
         List<WebElement> months = driver.findElement(By.name("month"))
                                         .findElements(By.tagName("option"));
         months.get(month - 1).click();
-        driver.findElement(By.name("year"))
-              .sendKeys(year);
+        WebElement yearInput = driver.findElement(By.name("year"));
+        yearInput.clear();
+        yearInput.sendKeys(year);
+
         driver.findElement(By.name("email"))
               .sendKeys(emailAddress);
-        driver.findElement(By.name("pword1"))
-              .sendKeys(password);
-        driver.findElement(By.name("pword2"))
-              .sendKeys(password);
+
+        WebElement passwordInput;
+        passwordInput = driver.findElement(By.name("pword1"));
+        passwordInput.sendKeys(password);
+        passwordInput = driver.findElement(By.name("pword2"));
+        passwordInput.sendKeys(password);
 
         driver.findElement(By.name("Q1"))
               .sendKeys("qestion_1");
@@ -148,11 +155,21 @@ public class LoginTest {
         driver.findElement(By.name("A5"))
               .sendKeys("answer_5");
 
-        driver.findElement(By.name("cca_agree"))
-              .click();
-        driver.findElement(By.name("process"))
-              .click();
-        System.out.println(driver.getPageSource());
-//        System.out.println(emailAddress + " - " + password);
+        WebElement agreCheckbox = driver.findElement(By.name("cca_agree"));
+        agreCheckbox.click();
+        agreCheckbox.submit();
+
+        assertEquals(
+            "Can't perfomt login!",
+            "Your information has been submitted into our system. You will now be sent an email with a web link, you need to open that link in your web browser within 24 hours or your information will be removed from our system!",
+            driver.findElement(By.cssSelector(".story")).findElement(By.tagName("p")).getText()
+        );
+
+        /*
+         * 2. activate at MANAGEMENT_SYSTEM_URI
+         * 3. login at TEST_SYSTEM_URI
+         * 4. logout at TEST_SYSTEM_URI
+         */
+        System.out.println(emailAddress + " - " + password);
     }
 }
