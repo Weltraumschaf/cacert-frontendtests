@@ -87,17 +87,44 @@ public class LoginTest {
         return sb.toString();
     }
 
-    @Test
-    public void checkGeneratedEmailAddreses() {
+    @Test public void checkGeneratedEmailAddreses() {
         assertEquals("hans.dampf@cacert1.it-sls.de", generateEmailAddres("hans", "dampf"));
         assertEquals("hans.dampf@cacert1.it-sls.de", generateEmailAddres("Hans", "dampf"));
         assertEquals("hans.dampf@cacert1.it-sls.de", generateEmailAddres("Hans", "Dampf"));
     }
 
-    @Test
-    public void registerActivateAndLoginNewUser() {
+    private String extractActivationUri(String mailText) {
+        String lines[] = mailText.split("[\\r\\n]+");
+
+        for (String line : lines) {
+            if (line.startsWith("http://")) {
+                return line;
+            }
+        }
+        
+        return null;
+    }
+    
+    @Test public void testExtractingUriFromMailText() {
+        StringBuilder fixture = new StringBuilder("Read Mail\n");
+        fixture.append("Thanks for signing up with CAcert.org, below is the link you need to open ");
+        fixture.append("to verify your account. Once your account is verified you will be able to ");
+        fixture.append("start issuing certificates till your hearts' content!\n\n");
+        fixture.append("http://cacert1.it-sls.de/verify.php?type=email&emailid=240888&hash=57659595e2ade49d072146b0210398cc\n\n");
+        fixture.append("Best regards\n");
+        fixture.append("CAcert.org Support!\n");
+        
+        assertEquals(
+            "http://cacert1.it-sls.de/verify.php?type=email&emailid=240888&hash=57659595e2ade49d072146b0210398cc", 
+            extractActivationUri(fixture.toString())
+        );
+        assertNull(extractActivationUri("foo bar baz"));
+    }
+    
+    @Ignore
+    @Test public void registerActivateAndLoginNewUser() {
         /*
-         * 1. register at TEST_SYSTEM_URI
+         * 1. register user at TEST_SYSTEM_URI
          */
         String firstName    = generateFirstName();
         String lastName     = generateLastName();
@@ -176,10 +203,8 @@ public class LoginTest {
             driver.findElement(By.cssSelector(".story")).findElement(By.tagName("p")).getText()
         );
 
-        //System.out.println("registered user:" + emailAddress + " - " + password);
-        
         /*
-         * 2. activate at MANAGEMENT_SYSTEM_URI
+         * 2. activate user at MANAGEMENT_SYSTEM_URI
          */
         driver.get(MANAGEMENT_SYSTEM_URI);
         driver.findElement(By.name("login_name"))
