@@ -35,8 +35,7 @@ public class LoginTest {
         stringGenerator = new RandomString(10);
     }
 
-    @Before
-    public void setUp() {
+    @Before public void setUp() {
         try {
             driver = TestHelper.createDriverByType(TestHelper.DriverType.HTMLUNIT);
         } catch (Exception ex) {
@@ -44,8 +43,7 @@ public class LoginTest {
         }
     }
 
-    @After
-    public void tearDown() {
+    @After public void tearDown() {
         driver.close();
         driver = null;
     }
