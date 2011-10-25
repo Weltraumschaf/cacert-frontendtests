@@ -196,9 +196,14 @@ public class LoginTest {
         agreeCheckbox.click();
         agreeCheckbox.submit();
 
+        StringBuilder registerSuccessMessage = new StringBuilder();
+        registerSuccessMessage.append("Your information has been submitted into our system. ");
+        registerSuccessMessage.append("You will now be sent an email with a web link, ");
+        registerSuccessMessage.append("you need to open that link in your web browser within ");
+        registerSuccessMessage.append("24 hours or your information will be removed from our system!");
         assertEquals(
             "Can't perfomt login!",
-            "Your information has been submitted into our system. You will now be sent an email with a web link, you need to open that link in your web browser within 24 hours or your information will be removed from our system!",
+            registerSuccessMessage.toString(),
             driver.findElement(By.cssSelector(".story")).findElement(By.tagName("p")).getText()
         );
 
@@ -261,14 +266,50 @@ public class LoginTest {
         // @todo test the other two options: don't verify and notify support
         driver.findElement(By.name("Yes"))
               .click();
-        StringBuilder succesMessage = new StringBuilder("Updated\n");
-        succesMessage.append("Your account and/or email address has been verified. ");
-        succesMessage.append("You can now start issuing certificates for this address.");
-        assertEquals(succesMessage.toString(), driver.findElement(By.className("story")).getText());
+        StringBuilder activationSuccesMessage = new StringBuilder("Updated\n");
+        activationSuccesMessage.append("Your account and/or email address has been verified. ");
+        activationSuccesMessage.append("You can now start issuing certificates for this address.");
+        assertEquals(
+            activationSuccesMessage.toString(), 
+            driver.findElement(By.className("story")).getText()
+        );
         
         /*
          * 3. login at TEST_SYSTEM_URI
+         */
+        driver.get(TEST_SYSTEM_URI + "index.php?id=4");
+        driver.findElement(By.name("email"))
+              .sendKeys(emailAddress);
+        driver.findElement(By.name("pword"))
+              .sendKeys(password);
+        driver.findElement(By.name("process"))
+              .click();
+        
+        List<WebElement> loggedInNav = driver.findElement(By.id("home"))
+                                             .findElements(By.tagName("a"));
+        boolean homeFound = false, logoutFound = false; 
+        
+        for (WebElement link : loggedInNav) {
+            if (link.getAttribute("href").equals(TEST_SYSTEM_URI + "index.php")) {
+                 homeFound = true;
+            }
+            
+            if (link.getAttribute("href").equals(TEST_SYSTEM_URI + "account.php?id=logout")) {
+                logoutFound = true;
+            }
+        }
+        
+        assertTrue("There is no home nav link!", homeFound);
+        assertTrue("There is no logout nav link!", logoutFound);
+        
+        /*
          * 4. logout at TEST_SYSTEM_URI
          */
+        driver.get(TEST_SYSTEM_URI + "account.php?id=logout");
+        assertEquals(
+            "Can't logout!", 
+            "Are you new to CAcert?", 
+            driver.findElement(By.className("story")).findElement(By.tagName("h3")).getText()
+        );
     }
 }
