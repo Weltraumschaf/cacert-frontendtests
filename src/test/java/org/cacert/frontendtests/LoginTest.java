@@ -178,11 +178,29 @@ public class LoginTest {
             driver.findElement(By.cssSelector(".story")).findElement(By.tagName("p")).getText()
         );
 
+        //System.out.println("registered user:" + emailAddress + " - " + password);
+        
         /*
          * 2. activate at MANAGEMENT_SYSTEM_URI
+         */
+        driver.get(MANAGEMENT_SYSTEM_URI);
+        driver.findElement(By.name("login_name"))
+              .sendKeys(emailAddress);
+        driver.findElement(By.name("login_password"))
+              .sendKeys(password);
+        driver.findElement(By.name("submit"))
+              .click();
+        assertEquals(
+            "Can't login management system!", 
+            "Dashboard", 
+            driver.findElement(By.tagName("h1")).getText()
+        );
+        
+        System.out.println(driver.getPageSource());
+        
+        /*
          * 3. login at TEST_SYSTEM_URI
          * 4. logout at TEST_SYSTEM_URI
          */
-        System.out.println(emailAddress + " - " + password);
     }
 }
