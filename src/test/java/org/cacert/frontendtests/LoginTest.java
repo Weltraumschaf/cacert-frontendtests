@@ -122,6 +122,7 @@ public class LoginTest {
                                         .findElements(By.tagName("option"));
         months.get(month - 1).click();
         WebElement yearInput = driver.findElement(By.name("year"));
+		assertEquals("Year field not correctly prefiled!", "19XX", yearInput.getAttribute("value"));
         yearInput.clear();
         yearInput.sendKeys(year);
 
@@ -154,6 +155,8 @@ public class LoginTest {
               .sendKeys("qestion_5");
         driver.findElement(By.name("A5"))
               .sendKeys("answer_5");
+
+		// @todo check that NL checkboxes are checked.
 
         WebElement agreCheckbox = driver.findElement(By.name("cca_agree"));
         agreCheckbox.click();
