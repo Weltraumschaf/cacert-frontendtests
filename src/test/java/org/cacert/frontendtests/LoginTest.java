@@ -121,7 +121,6 @@ public class LoginTest {
         assertNull(extractActivationUri("foo bar baz"));
     }
     
-    @Ignore
     @Test public void registerActivateAndLoginNewUser() {
         /*
          * 1. register user at TEST_SYSTEM_URI
@@ -218,8 +217,54 @@ public class LoginTest {
             "Dashboard", 
             driver.findElement(By.tagName("h1")).getText()
         );
+        List<WebElement> headerNavLinks = driver.findElement(By.id("header-navigation"))
+                                                .findElements(By.tagName("a"));
         
-        System.out.println(driver.getPageSource());
+        for (WebElement link : headerNavLinks) {
+            if (link.getText().equals("Mail")) {
+                link.click();
+                break;
+            }
+        }
+
+        assertEquals(
+            "Can't view own mails!", 
+            "View own Mail", 
+            driver.findElement(By.tagName("h1")).getText()
+        );
+        List<WebElement> tableRows = driver.findElement(By.tagName("table"))
+                                           .findElements(By.tagName("tr"));
+        assertEquals(
+            "There seem to be more than one email in the inbox, unexpectingly!", 
+            2, 
+            tableRows.size()
+        );
+        WebElement secondRow = tableRows.get(1);
+        secondRow.findElement(By.tagName("a"))
+                 .click();
+        
+        assertEquals(
+            "Can't view activation mail!", 
+            "Read Mail", 
+            driver.findElement(By.tagName("h1")).getText()
+        );
+        
+        String mailText = driver.findElement(By.id("content")).getText();
+        String activationUri = extractActivationUri(mailText);
+        driver.get(activationUri);
+        assertEquals(
+            "Can't activate!", 
+            "Updated", 
+            driver.findElement(By.className("story")).findElement(By.tagName("h3")).getText()
+        );
+        // Verify emailadress.
+        // @todo test the other two options: don't verify and notify support
+        driver.findElement(By.name("Yes"))
+              .click();
+        StringBuilder succesMessage = new StringBuilder("Updated\n");
+        succesMessage.append("Your account and/or email address has been verified. ");
+        succesMessage.append("You can now start issuing certificates for this address.");
+        assertEquals(succesMessage.toString(), driver.findElement(By.className("story")).getText());
         
         /*
          * 3. login at TEST_SYSTEM_URI
