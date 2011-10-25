@@ -96,7 +96,7 @@ public class LoginTest {
         assertEquals("hans.dampf@cacert1.it-sls.de", generateEmailAddres("Hans", "Dampf"));
     }
 
-    @Test @Ignore("Not ready yet!")
+    @Test
     public void registerActivateAndLoginNewUser() {
         /*
          * 1. register at TEST_SYSTEM_URI
@@ -122,7 +122,7 @@ public class LoginTest {
                                         .findElements(By.tagName("option"));
         months.get(month - 1).click();
         WebElement yearInput = driver.findElement(By.name("year"));
-		assertEquals("Year field not correctly prefiled!", "19XX", yearInput.getAttribute("value"));
+        assertEquals("Year field not correctly prefiled!", "19XX", yearInput.getAttribute("value"));
         yearInput.clear();
         yearInput.sendKeys(year);
 
@@ -156,11 +156,21 @@ public class LoginTest {
         driver.findElement(By.name("A5"))
               .sendKeys("answer_5");
 
-		// @todo check that NL checkboxes are checked.
-
-        WebElement agreCheckbox = driver.findElement(By.name("cca_agree"));
-        agreCheckbox.click();
-        agreCheckbox.submit();
+        // Verify that notfy checkboxes are checked by default
+        WebElement notifyCheckbox;
+        notifyCheckbox = driver.findElement(By.name("general"));
+        assertEquals("true", notifyCheckbox.getAttribute("checked"));
+        notifyCheckbox = driver.findElement(By.name("country"));
+        assertEquals("true", notifyCheckbox.getAttribute("checked"));
+        notifyCheckbox = driver.findElement(By.name("regional"));
+        assertEquals("true", notifyCheckbox.getAttribute("checked"));
+        notifyCheckbox = driver.findElement(By.name("radius"));
+        assertEquals("true", notifyCheckbox.getAttribute("checked"));
+        
+        WebElement agreeCheckbox = driver.findElement(By.name("cca_agree"));
+        assertNull("Agreement checkbox not unchecked!", agreeCheckbox.getAttribute("checked"));
+        agreeCheckbox.click();
+        agreeCheckbox.submit();
 
         assertEquals(
             "Can't perfomt login!",
